@@ -6,6 +6,11 @@ using UnityEngine.EventSystems;
 public class PlayerMovement : MonoBehaviour
 {
 
+    public float PlayerCurrenthealth;
+    public float Maxhealth;
+    private Health health;
+
+
     [SerializeField] private float speed;
     private float horizontal;
     private Animator _anim;
@@ -21,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
+        health = GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -56,6 +62,23 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    public void PlayerTakeDamage(float damage)
+    {
+        PlayerCurrenthealth -= damage;
+        //_anim.SetTrigger("Hit");
+        health.UpdateHealthBar(PlayerCurrenthealth, Maxhealth);
+
+        if (PlayerCurrenthealth <= 0)
+        {
+            // _anim.SetTrigger("Die");
+            Invoke(nameof(DestroyPlayer), 2f);
+        }
+    }
+    void DestroyPlayer()
+    {
+        Destroy(this.gameObject);
     }
 
 
