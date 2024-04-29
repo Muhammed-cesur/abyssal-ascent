@@ -38,7 +38,6 @@ public class Shooting : MonoBehaviour
         _anim.SetTrigger("Shoot");
         yield return new WaitForSecondsRealtime(.5f);
         var shoot = Instantiate(Bullet, ShootPoint.position, transform.rotation);
-        Debug.Log("dsadas");
         
         shoot.GetComponent<Rigidbody2D>().velocity = ShootPoint.right * speed;
 
