@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
     public float EnemyCurrenthealth;
     public float Maxhealth;
+
+    public float Damage;
 
     private Health health;
     private Animator _anim;
@@ -18,7 +21,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 3f; // Düþmanýn hareket hýzý
 
     private Rigidbody2D rb;
-  
+
 
 
 
@@ -29,7 +32,7 @@ public class Enemy : MonoBehaviour
         health = GetComponent<Health>();
 
         rb = GetComponent<Rigidbody2D>();
-       
+
     }
 
 
@@ -44,17 +47,44 @@ public class Enemy : MonoBehaviour
             // Düþmaný karaktere doðru hareket ettir
             Vector2 moveDirection = (target.position - transform.position).normalized;
             rb.velocity = moveDirection * moveSpeed;
+
+            // Düþmaný karakterin olduðu tarafa döndür
+            transform.right = moveDirection;
+
+            _anim.SetBool("Walk", true);
+            // Düþmaný karakterin olduðu tarafa döndür
+            if (moveDirection.x < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else if (moveDirection.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
         else
         {
             // Düþman hareket etmez
             rb.velocity = Vector2.zero;
+            _anim.SetBool("Walk", false);
         }
 
         // Saldýrma mesafesine gelindiðinde
         if (distanceToTarget <= attackRange)
         {
-            // Burada saldýrma kodu yazýlabilir veya istenilen iþlem yapýlabilir.
+            Attacked();
+        }
+    }
+
+    private void Attacked()
+    {
+        _anim.SetBool("Walk", false);
+        _anim.SetTrigger("Attack");
+
+        var player = target.GetComponent<PlayerMovement>();
+        if (player)
+        {
+            player.PlayerTakeDamage(Damage);
         }
     }
 
@@ -75,12 +105,12 @@ public class Enemy : MonoBehaviour
     public void EnemyTakeDamage(float damage)
     {
         EnemyCurrenthealth -= damage;
-        //_anim.SetTrigger("Hit");
+        _anim.SetTrigger("Hit");
         health.UpdateHealthBar(EnemyCurrenthealth, Maxhealth);
 
         if (EnemyCurrenthealth <= 0)
         {
-           // _anim.SetTrigger("Die");
+           _anim.SetTrigger("Die");
             Invoke(nameof(DestroyEnemy), 2f);
         }
     }
