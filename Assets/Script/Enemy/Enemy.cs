@@ -10,6 +10,12 @@ public class Enemy : MonoBehaviour
     public float Maxhealth;
 
     public float Damage;
+    public float DamgeDelayTime;
+    private float distanceToTarget;
+
+    private bool canTakeDamage = true; // Hasar alabilirlik durumu
+    private Coroutine damageCooldownCoroutine; // Hasar alýndýktan sonra beklenen süre
+
 
     private Health health;
     private Animator _anim;
@@ -32,6 +38,7 @@ public class Enemy : MonoBehaviour
         health = GetComponent<Health>();
 
         rb = GetComponent<Rigidbody2D>();
+        canTakeDamage = true;
 
     }
 
@@ -39,7 +46,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // Karakter ile düþman arasýndaki mesafeyi hesapla
-        float distanceToTarget = Vector2.Distance(transform.position, target.position);
+         distanceToTarget = Vector2.Distance(transform.position, target.position);
 
         // Karakteri takip etme
         if (distanceToTarget <= chaseRange && distanceToTarget > stopRange)
@@ -69,22 +76,24 @@ public class Enemy : MonoBehaviour
             _anim.SetBool("Walk", false);
         }
 
-        // Saldýrma mesafesine gelindiðinde
-        if (distanceToTarget <= attackRange)
-        {
-            Attacked();
-        }
+        Attacked();
     }
 
     private void Attacked()
     {
-        _anim.SetBool("Walk", false);
-        _anim.SetTrigger("Attack");
-
-        var player = target.GetComponent<PlayerMovement>();
-        if (player)
+        if (canTakeDamage && distanceToTarget <= attackRange)
         {
-            player.PlayerTakeDamage(Damage);
+
+
+            var player = target.GetComponent<PlayerMovement>();
+            if (player)
+            {
+                StartCoroutine(StartDamageCooldown());
+                player.PlayerTakeDamage(Damage);
+                _anim.SetBool("Walk", false);
+                _anim.SetTrigger("Attack");
+                
+            }
         }
     }
 
@@ -110,12 +119,15 @@ public class Enemy : MonoBehaviour
 
         if (EnemyCurrenthealth <= 0)
         {
-           _anim.SetTrigger("Die");
-            Invoke(nameof(DestroyEnemy), 2f);
+            canTakeDamage = false;
+        Destroy(this.gameObject);
+
         }
     }
-    void DestroyEnemy () 
+    private IEnumerator StartDamageCooldown()
     {
-        Destroy(this.gameObject);
+        canTakeDamage = false; 
+        yield return new WaitForSeconds(DamgeDelayTime); 
+        canTakeDamage = true; 
     }
 }

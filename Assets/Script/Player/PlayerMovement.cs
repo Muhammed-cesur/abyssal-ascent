@@ -72,14 +72,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (PlayerCurrenthealth <= 0)
         {
-            // _anim.SetTrigger("Die");
-            Invoke(nameof(DestroyPlayer), 2f);
+            Destroy(this.gameObject);
+
         }
     }
-    void DestroyPlayer()
-    {
-        Destroy(this.gameObject);
-    }
-
 
 }
