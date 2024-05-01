@@ -400,7 +400,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f28e5060b1c87274280e20a11304db5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -465,8 +465,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.20139599, y: -0.19}
-  m_Size: {x: 0.20206869, y: 0.68134457}
+  m_Offset: {x: -0.20139599, y: -0.16505472}
+  m_Size: {x: 0.20206869, y: 0.63145393}
   m_Direction: 0
 --- !u!50 &7763101289790465921
 Rigidbody2D:
@@ -494,7 +494,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!114 &4813924826071808365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,10 +511,10 @@ MonoBehaviour:
   Maxhealth: 100
   Damage: 10
   DamgeDelayTime: 1
-  target: {fileID: 2221676882376194079, guid: 2f65c8ab61e0f0240a79dec1af6f7008, type: 3}
+  target: {fileID: 0}
   chaseRange: 5
-  stopRange: 1
-  attackRange: 1
+  stopRange: 0.8
+  attackRange: 1.5
   moveSpeed: 5
 --- !u!114 &5394579936911124843
 MonoBehaviour:
