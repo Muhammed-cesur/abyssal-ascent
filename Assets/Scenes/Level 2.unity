@@ -5526,6 +5526,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1264393767}
+    - target: {fileID: 4339411149121473069, guid: 70a1ab9bab5bcca468a72fee12289dac, type: 3}
+      propertyPath: m_Mass
+      value: 0.18961799
+      objectReference: {fileID: 0}
+    - target: {fileID: 4339411149121473069, guid: 70a1ab9bab5bcca468a72fee12289dac, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4339411149121473069, guid: 70a1ab9bab5bcca468a72fee12289dac, type: 3}
+      propertyPath: m_UseAutoMass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7417622082908037064, guid: 70a1ab9bab5bcca468a72fee12289dac, type: 3}
       propertyPath: m_SortingOrder
       value: 4
