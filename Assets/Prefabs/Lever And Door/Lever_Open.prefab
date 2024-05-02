@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4859847151110624}
   - component: {fileID: 212154849152053092}
   m_Layer: 0
-  m_Name: Medieval_props_free_12
+  m_Name: Lever_Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
