@@ -10,6 +10,15 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();
