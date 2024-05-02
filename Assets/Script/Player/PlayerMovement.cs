@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -74,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(this.gameObject);
 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 
